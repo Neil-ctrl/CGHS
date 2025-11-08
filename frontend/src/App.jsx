@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-      {isLogin ? page() : <h1>Please Login to continue</h1>}
+      {isLogin ? page() : <h1>Please Log In to continue</h1>}
     </>
   )
 }

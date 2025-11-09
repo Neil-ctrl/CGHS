@@ -71,32 +71,59 @@ Auth (Future)	Username/password (hashed)
 
 Repository Structure
 
+
 CGHS/
+
 │
+
 ├── backend/
+
 │   ├── main.py
+
 │   ├── README.md
+
 │   ├── requirements.txt
+
 │
+
 ├── frontend/
+
 │   ├── src/
+
 │   │   ├── main.jsx
+
 │   │   ├── App.jsx
+
 │   │   ├── components/
+
 │   │   │   ├── Header.jsx
+
 │   │   │   ├── Home.jsx
+
 │   │   │   ├── Discover.jsx
+
 │   │   │   ├── Search.jsx
+
 │   │   │   ├── Login.jsx
+
 │   │   │   └── Register.jsx
+
 │   │   ├── assets/
+
 │   ├── README.md
+
 │
+
 ├── start/
+
 │   ├── start.bat
+
 │   ├── README.md
+
 │
+
 └── README.md              # (This file)
+
 
 
 Prerequisites

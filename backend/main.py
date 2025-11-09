@@ -17,6 +17,11 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
+class RegisterRequest(BaseModel):
+    username: str
+    password: str
+
+
 def checkLogin(username: str, password: str):
 
     conn = psycopg2.connect(
@@ -25,7 +30,6 @@ def checkLogin(username: str, password: str):
         user="neil",
         password="pwd"
     )
-
     cursor = conn.cursor()
 
     query = """
@@ -43,9 +47,47 @@ def checkLogin(username: str, password: str):
     else:
         return {"success": False, "message": "Invalid username or password"}
 
+
+def registerUser(username: str, password: str):
+
+    conn = psycopg2.connect(
+        host="localhost",
+        database="cghs",
+        user="neil",
+        password="pwd"
+    )
+    cursor = conn.cursor()
+
+
+    cursor.execute("SELECT id FROM users WHERE username = %s;", (username,))
+    existing = cursor.fetchone()
+
+    if existing:
+        cursor.close()
+        conn.close()
+        return {"success": False, "message": "Username already exists"}
+
+
+    cursor.execute(
+        "INSERT INTO users (username, password) VALUES (%s, %s);",
+        (username, password)
+    )
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return {"success": True, "message": "Registration successful"}
+
+
+
 @app.post("/login")
 def login(req: LoginRequest):
     return checkLogin(req.username, req.password)
+
+@app.post("/register")
+def register(req: RegisterRequest):
+    return registerUser(req.username, req.password)
 
 @app.get("/")
 def root():

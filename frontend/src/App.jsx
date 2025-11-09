@@ -14,10 +14,10 @@ function App() {
   const page = () => {
 
     if (loginStatus === 'logging in' && !isLogin) {
-      return <Login isLogin={isLogin} setIsLogin={setIsLogin} />
+      return <Login isLogin={isLogin} setIsLogin={setIsLogin} loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
     }
     else if (loginStatus === 'registering' && !isLogin) {
-      return <Register />
+      return <Register loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
     }
     else if (currPage === 'home') {
       return <Home />

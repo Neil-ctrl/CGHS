@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Login({ isLogin, setIsLogin }) {
+function Login({ isLogin, setIsLogin, loginStatus, setLoginStatus }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -38,6 +38,7 @@ function Login({ isLogin, setIsLogin }) {
       />
       <br/>
       <button onClick={handleLogin}>Login</button>
+      <button onClick={() => setLoginStatus("registering")}>Create New Account</button>
 
       {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
     </div>

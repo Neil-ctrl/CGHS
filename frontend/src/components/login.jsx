@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/login.css";
 
 function Login({ isLogin, setIsLogin, loginStatus, setLoginStatus }) {
   const [username, setUsername] = useState("");
@@ -22,25 +23,47 @@ function Login({ isLogin, setIsLogin, loginStatus, setLoginStatus }) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <input
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br/>
-      <input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br/>
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={() => setLoginStatus("registering")}>Create New Account</button>
+    <div className="login-container">
+    <div className="login-card">
+    <div className="login-header">
+    <h2>Chhattisgarh Hastkala Samriddhi</h2>
+    </div>
+    <div className="login-form">
+    <div className="input-group">
+    <label htmlFor="username">Username</label>
+    <input
+    placeholder="Username"
+    value={username}
+    onChange={(e) => setUsername(e.target.value)}
+    />
+    </div>
+    <div className="input-group">
+    <label htmlFor="password">Password</label>
+    <input
+    placeholder="Password"
+    type="password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    />
+    </div>
 
-      {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
+    {errorMsg && (
+      <div className="error-message">
+      <span className="error-icon">⚠️</span>
+      {errorMsg}
+      </div>
+    )}
+
+
+    <button className='login-button' onClick={handleLogin}>Log In</button>
+    </div>
+
+    <div className="login-footer">
+    <p>
+    Don't have an account? <a href="#" onClick={() => setLoginStatus("registering")}>Sign Up</a>
+    </p>
+    </div>
+    </div>
     </div>
   );
 }

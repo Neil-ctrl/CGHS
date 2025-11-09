@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Header from './components/Header.jsx'
 import Home from './components/Home.jsx'
 import Discover from './components/Discover.jsx'
 import Search from './components/Search.jsx'
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <>
+      <Header currPage={currPage} setCurrPage={setCurrPage} />
       {isLogin ? page() : <h1>Please Log In to continue</h1>}
     </>
   )

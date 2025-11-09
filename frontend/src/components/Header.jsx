@@ -1,13 +1,24 @@
-import { useState } from 'react'
 
-function Header() {
-  const [count, setCount] = useState(0)
+
+function Header({ currPage, setCurrPage }) {
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "discover", label: "Discover" },
+    { id: "search", label: "Search" },
+  ];
 
   return (
-    <>
-      DISCOVER PAGE HERE
-    </>
-  )
+    <nav>
+      {navItems.map(item => (
+        <button
+          key={item.id}
+          onClick={() => setCurrPage(item.id)}
+        >
+          {item.label}
+        </button>
+      ))}
+    </nav>
+  );
 }
 
-export default Header
+export default Header;

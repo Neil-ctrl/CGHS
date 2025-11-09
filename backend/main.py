@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import psycopg2
 
 app = FastAPI()
 
@@ -16,13 +17,36 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
-@app.get("/")
-def root():
-    return {"message": "Backend is running"}
+def checkLogin(username: str, password: str):
+
+    conn = psycopg2.connect(
+        host="localhost",
+        database="cghs",
+        user="neil",
+        password="pwd"
+    )
+
+    cursor = conn.cursor()
+
+    query = """
+        SELECT id FROM users
+        WHERE username = %s AND password = %s;
+    """
+    cursor.execute(query, (username, password))
+    user = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if user:
+        return {"success": True, "message": "Login successful"}
+    else:
+        return {"success": False, "message": "Invalid username or password"}
 
 @app.post("/login")
 def login(req: LoginRequest):
-    if req.username == "admin" and req.password == "1234":
-        return {"success": True, "message": "Login successful"}
+    return checkLogin(req.username, req.password)
 
-    return {"success": False, "message": "Invalid credentials"}
+@app.get("/")
+def root():
+    return {"message": "Backend running"}
